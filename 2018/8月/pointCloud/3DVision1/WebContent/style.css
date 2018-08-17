@@ -1,0 +1,134 @@
+html,body,div,ul,li{
+  margin: 0;
+  padding: 0;
+}
+.container{
+  min-width: 1340px;
+  height: 800px;
+  /* background: black; */
+  margin: 0 auto;
+}
+.header{
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  font-family: 'SimHei';
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2px 8px #f0f1f2;
+}
+.content{
+  width: 100%;
+  height: 400px;
+  padding-top: 70px;
+  /* background: red; */
+  box-sizing: border-box;
+}
+.tip-platform{
+  width: 100%;
+  height: 40px;
+  font-family: 'SimHei';
+  font-size: 20px;
+  text-align: center;
+}
+.tip-upload{
+  width: 100%;
+  height: 40px;
+  font-family: 'SimHei';
+  font-size: 20px;
+  text-align: center;
+}
+#uploader{
+  width: 100%;
+  height: 300px;
+  padding-top: 140px;
+}
+#thelist{
+  width: 100%;
+  font-family: 'SimHei';
+  font-size: 18px;
+  text-align: center;
+}
+
+.btns{
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+}
+.upload-btn{
+  width: 120px;
+  height: 40px;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+.fileinput-btn{
+	postion:relative;
+	display:inline-block;
+	overflow:hidden;
+}
+.fileinput-btn input{
+	position:absolute;
+	right:0px;
+	top:0px;
+}
+.btn1{
+  width: 120px;
+  height: 100px;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+}
+.upload-btn1{
+  width: 120px;
+  height: 40px;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+a{
+  width: 120px;
+  height: 40px;
+  text-decoration: none;
+  border-radius: 5px;
+  line-height: 36px;
+  background: #1870FF;
+  color: #FFFFFF;
+  font-family: 'SimHei';
+  font-size: 16px;
+  text-align: center; 
+  top: 0;
+  left: 0;
+  position: absolute;
+  cursor: pointer;
+}
+.con{
+  width: 120px;
+  height: 40px;
+  margin: 10px auto;
+  border-radius: 5px;
+  line-height: 36px;
+  background: #1870FF;
+  color: #FFFFFF;
+  font-family: 'SimHei';
+  font-size: 16px;
+  text-align: center; 
+  cursor: pointer;
+}
+#picker{
+  width: 120px;
+  height: 36px;
+  margin: 0 auto;
+  border-radius: 5px;
+  line-height: 36px;
+  background: #1870FF;
+  color: #FFFFFF;
+  font-family: 'SimHei';
+  font-size: 16px;
+  text-align: center; 
+}

@@ -1,0 +1,36 @@
+功能介绍：
+本网页用于对laz，las点云文件进行转换后实现最终效果的显示
+
+需要的配置环境
+java JDK
+tomcat
+PotreeConverter
+python提供的http.server服务
+
+安装好上述环境后方可进行下述步骤
+
+使用方法：
+在使用中需要注意的主要是文件的存储路径已经转换后文件的存储路径配置问题
+这些配置都在/3DVision/src/dao/config.java下进行配置
+
+需要修改的路径主要有以下几项
+
+public static String filepath1 = "C:\\Users\\31966\\Desktop\\file";    //上传文件的路径
+"C:\\Users\\31966\\Desktop\\file"为上传后的文件放置的位置
+
+public static String path_disk = "C: ";          //转换后文件存储的父路径所在盘
+public static String convertfile_path =			//转换后的文件存储的父路径
+			"C:\\Users\\31966\\Desktop\\file\\converter\\";
+这里的“C:\\Users\\31966\\Desktop\\file\\converter\\”为转换后的点云文件放置的位置，若使用其他服务器，如xampp，则路径应该换成xampp下的路径
+path_disk则为为转换后的点云文件放置的位置的盘的名称，这里为C盘
+
+public static String filesource = "/converter/";   
+//需要访问的文件在xampp下的那个文件目录下，根目录则此处filesource=“”；
+注意：此处需要使用反斜杆
+			
+public static String potreeconvert_disk = "C: ";     //PotreeConvert存储路径所在盘
+public static String potreeconvert_path=     //PotreeConvert存储路径
+			"C:\\Users\\31966\\Desktop\\PotreeConverter_1.6_windows_x64";
+这里的“C:\\Users\\31966\\Desktop\\PotreeConverter_1.6_windows_x64”为点云转换工具的路径
+potreeconvert_path则为为转换后的点云文件放置的位置的盘的名称，这里为C盘
+
