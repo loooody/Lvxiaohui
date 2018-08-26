@@ -1,32 +1,31 @@
 package org.lv.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 /**
- * HelloController是一个实现controller接口的控制器
- * 可以处理一个单一的请求动作
+ * HelloController是一个基于注解的控制器
+ * 可以同时处理多个请求动作，并且无须实现任务接口
  * @author 319667916
  *
  */
-public class HelloController implements Controller{
+@Controller
+public class HelloController{
 	
 	private static final Log logger = LogFactory.getLog(HelloController.class);
 
-	@Override
-	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.info("handleRequest被调用");
+	@RequestMapping(value="/hello")
+	public ModelAndView hello() {
+		logger.info("hello方法被调用");
+		//创建准备返回的ModelAndView对象
 		ModelAndView mv = new ModelAndView();
-		//添加模型数据，可以是任意的POJO对象
-		mv.addObject("message","Hello World!!!  loooody");
-		//设置逻辑视图名，视图解析器会根据该名字解析到具体的视图页面
+		//添加模型数据
+		mv.addObject("message","hello !!!");
+		//设置视图名
 		mv.setViewName("WEB-INF/content/welcome.jsp");
-		//返回ModelAndView对象
 		return mv;
 	}
 	
