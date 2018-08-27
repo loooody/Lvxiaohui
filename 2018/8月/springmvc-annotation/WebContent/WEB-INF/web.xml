@@ -6,7 +6,7 @@
 	id="WebApp_ID" version="3.1">
 	
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/content/welcome.jsp</welcome-file>
+		<welcome-file>helloWorld</welcome-file>
 	</welcome-file-list>
 	<!-- 定义Spring MVC的前端控制器 -->
 	<servlet>
