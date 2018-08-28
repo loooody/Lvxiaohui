@@ -31,6 +31,9 @@
 			<td>文本：</td>
 			<td><form:textarea path="" row="5" col="20" /></td>
 		</tr>
+		<tr>
+			<td><input type="submit" value="提交" /></td>
+		</tr>
 	</table>
 </form:form>
 </body>

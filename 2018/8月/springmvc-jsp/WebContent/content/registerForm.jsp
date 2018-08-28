@@ -9,21 +9,39 @@
 </head>
 <body>
 <h2>注册页面</h2>
-<form:form method="post" action="register">
+<form:form modelAttribute="user" method="post" action="register1">
 	<table>
 		<tr>
 			<td>姓名：</td>
 			<td><form:input path="username" /></td>
+			<td><font color="red" ><form:errors path="username" /></font>
 		</tr>
 		<tr>
 			<td>性别：</td>
 			<td><form:input path="sex" /></td>
+			<td><font color="red" ><form:errors path="sex" /></font>
 		</tr>
 		<tr>
 			<td>年龄：</td>
 			<td><form:input path="age" /></td>
+			<td><font color="red" ><form:errors path="age" /></font>
+		</tr>
+		<tr>
+			<td>密码：</td>
+			<td><form:password path="password" showPassword="true" /></td>
+			<td><font color="red" ><form:errors path="password" /></font>
+		</tr>
+		<tr>
+			<td>文本：</td>
+			<td><form:textarea path="" row="5" col="20" /></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="提交" /></td>
 		</tr>
 	</table>
 </form:form>
+
+
+
 </body>
 </html>
