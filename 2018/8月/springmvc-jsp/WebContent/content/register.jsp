@@ -23,6 +23,14 @@
 			<td>年龄：</td>
 			<td><form:input path="age" /></td>
 		</tr>
+		<tr>
+			<td>密码：</td>
+			<td><form:password path="password" showPassword="true" /></td>
+		</tr>
+		<tr>
+			<td>文本：</td>
+			<td><form:textarea path="" row="5" col="20" /></td>
+		</tr>
 	</table>
 </form:form>
 </body>

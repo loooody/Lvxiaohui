@@ -4,7 +4,16 @@ public class User {
 	private String username;
 	private String sex;
 	private Integer age;
+	private String password;
 	
+	public User(String username, String sex, Integer age, String password) {
+		super();
+		this.username = username;
+		this.sex = sex;
+		this.age = age;
+		this.password = password;
+	}
+
 	public User() {}
 
 	public User(String username, String sex, Integer age) {
@@ -13,7 +22,14 @@ public class User {
 		this.sex = sex;
 		this.age = age;
 	}
-
+	
+	public String getPassword() {
+			return password;
+		}
+	
+		public void setPassword(String password) {
+			this.password = password;
+		}
 	public String getUsername() {
 		return username;
 	}

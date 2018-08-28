@@ -18,7 +18,7 @@ public class UserController {
 	
 	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public String register(Model model) {
-		User user = new User("loooody","男",21);
+		User user = new User("loooody","男",21,"520");
 		//model中添加属性，值是user对象
 		model.addAttribute("user",user);
 		return "register";
