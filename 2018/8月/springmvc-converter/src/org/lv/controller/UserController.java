@@ -1,10 +1,15 @@
 package org.lv.controller;
 
+import java.util.Date;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.lv.converter.DateEditor;
 import org.lv.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,5 +30,12 @@ public class UserController{
 		logger.info(user);
 		model.addAttribute("user",user);
 		return "success";
+	}
+	
+	//在控制器初始化时注册属性编辑器
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		//注册自定义编辑器
+		binder.registerCustomEditor(Date.class, new DateEditor());
 	}
 }

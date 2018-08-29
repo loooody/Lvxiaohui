@@ -28,10 +28,12 @@
 		</property>
 		</bean>
 	
-	<!-- 装配自定义的类型转换器 -->
+	<!-- 装配自定义的类型转换器 (测试InitBinder时注释)-->
+<!--  
 	<mvc:annotation-driven conversion-service="conversionService" />
-	
-	<!-- 自定义的类型转换器 -->
+-->	
+	<!-- 自定义的类型转换器(测试InitBinder时注释) -->
+<!--  	
 	<bean id="conversionService"
 		class="org.springframework.context.support.ConversionServiceFactoryBean">
 			<property name="converters" >
@@ -40,4 +42,6 @@
 				</list>
 			</property>
 		</bean>
+-->	
+
 </beans>
