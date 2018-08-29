@@ -25,12 +25,13 @@ public class UserController{
 		return formName;
 	}
 	
-	@RequestMapping(value="/login",method=RequestMethod.GET)
+	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login(
 			@ModelAttribute @Validated User user,
 			Model model,
 			HttpServletRequest request) {
 		//如果登录名是loooody，密码是520，则验证通过
+		System.out.println("到login");
 		if(user.getLoginname() != null && user.getLoginname().equals("loooody")
 				&& user.getPassword() != null && user.getPassword().equals("520")) {
 			//从后台代码获取国际化信息usrname
