@@ -42,5 +42,5 @@
 	
 	<!-- AcceptHaeaderLocaleResolver配置，因为AcceptHeaderLocale是默认的语言解析器，不配置也可以 -->
 	<bean id="localeResolver"
-		class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
 </beans>
