@@ -1,5 +1,8 @@
 package com.lv.test;
 
+import java.util.UUID;
+
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ public class MapperTest {
 	
 	@Autowired
 	EmployeeMapper employeeMapper;
+	
+	@Autowired
+	SqlSession sqlSession;
 	/**
 	 * 测试DepartmentMapper
 	 */
@@ -37,10 +43,25 @@ public class MapperTest {
 		System.out.println(departMapper);
 		
 		//1.插入几个部门
-	//	departMapper.insertSelective(new Department(null,"开发部"));
-	//	departMapper.insertSelective(new Department(null,"测试部"));
+		departMapper.insertSelective(new Department(null,"开发部"));
+		departMapper.insertSelective(new Department(null,"测试部"));
 		
 		//2。生成员工数据，测试员工插入
-		employeeMapper.insertSelective(new Employee(null,"loooody","M","loooody@qq.com"));
+	//	employeeMapper.insertSelective(new Employee(null,"loooody","M","loooody@qq.com"));
+		
+		//3.批量插入多个员工：批量，使用可以执行批量的sqlSession
+//		EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+//		for(int i = 0; i < 1000; i++) {
+//			String uid = UUID.randomUUID().toString().substring(0, 5) + i;
+//			mapper.insertSelective(new Employee(null,uid, "M", uid+"@loooody.com"));
+//		}
+//		System.out.println("批量完成");
+		
+//		Employee e = employeeMapper.selectByPrimaryKeyWithDept(1);
+//		System.out.println(e.getEmpName());
+		
+		//4.查询员工
+//		 departMapper.deleteByPrimaryKey(2);
+//		 System.out.println("删除成功");
 	}
 }
