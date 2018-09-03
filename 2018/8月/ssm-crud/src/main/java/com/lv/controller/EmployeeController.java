@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,6 +28,19 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
 
+	/**
+	 * 员工保存
+	 * @param pn
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/emps",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveEmp(Employee employee) {
+		employeeService.saveEmp(employee);
+		return Msg.success();
+	}
+	
 	@RequestMapping("/emps")
 	@ResponseBody
 	public Msg getEmpsWithJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn, Model model) {

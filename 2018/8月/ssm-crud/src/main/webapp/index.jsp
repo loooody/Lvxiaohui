@@ -63,7 +63,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save</button>
+	        <button type="button" class="btn btn-primary" id="emp_save_btn">Save</button>
 	      </div>
 	    </div>
 	  </div>
@@ -117,6 +117,8 @@
 	</div>
 	
 	<script>
+	    //数据总记录数
+	    var totalRecord;
 		//1.页面加载完成后，直接取发送ajax请求，要到分页数据
 		$(function(){
 			//去首页
@@ -179,7 +181,9 @@
 			//清空数据
 			$("#page_info_area").empty();
 			$("#page_info_area").append("当前" + result.extend.pageInfo.pageNum + "页,总"+result.extend.pageInfo.pages
-					+ "页，总" + result.extend.pageInfo.total + "条记录")
+					+ "页，总" + result.extend.pageInfo.total + "条记录");
+			
+			totalRecord = result.extend.pageInfo.total;
 		}
 		
 		//分页信息
@@ -269,6 +273,51 @@
 				}
 			});
 		}
+		
+		//校验表单数据
+		function validate_add_form(){
+			//1.拿到表单数据
+			var empName = $("#empName_add_input").val();
+			var regName = 	/(^[a-z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
+			if(!regName.test(empName)){
+				alert("用户名可是2-5位中文或者6-16位英文和数字的组合");
+				return false;
+			};
+			
+			//校验邮箱信息
+			var email = $("#email_add_input").val();
+			var regEmail = 	/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			if(!regEmail.test(email)){
+				alert("邮箱有误，请重新输入");
+				return false;
+			}
+			
+			return true;
+		}
+		
+		$("#emp_save_btn").click(function(){
+			//1.模态框中填写的表单数据提交给服务器进行保存
+			//1.对要提交给服务器的数据进行校验
+			if(!validate_add_form()){
+				return false;
+			}
+			//发送ajax请求给服务器
+		//	alert($("#empAddModal form").serialize());
+			 $.ajax({
+				url:"${APP_PATH}/emps",
+				type:"POST",
+				data:$("#empAddModal form").serialize(),
+				success:function(result){
+					//alert(result.msg);
+					//员工保存成功
+					//1.关闭模态框
+					$("#empAddModal").modal('hide');
+					//2.来到最后一页
+					to_page(totalRecord);
+					
+				}
+			}) ;
+		});
 	</script>
 </body>
 </html>
