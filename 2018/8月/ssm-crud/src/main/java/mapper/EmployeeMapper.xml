@@ -101,7 +101,7 @@
     </if>
     <include refid="WithDept_Column_List" />
     from employee e 
-    left join dept d on e.emp_id = d.dept_id
+    left join dept d on e.emp_id % 2 = d.dept_id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
