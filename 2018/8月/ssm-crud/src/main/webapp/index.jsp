@@ -221,6 +221,7 @@
 				//删除按钮
 				var deletebtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
 								.append("<span></span>").addClass("glyphicon glyphicon-trash").append("删除");
+				deletebtn.attr("del-id",item.empId);
 				var btnTd = $("<td></td>").append(editbtn).append(" ").append(deletebtn);
 				$("<tr></tr>").append(empIdTd)
 						.append(empNameTd)
@@ -517,6 +518,25 @@
 				}
 				
 			});
+		});
+		
+		//单个删除
+		$(document).on("click",".delete_btn",function(){
+			//1.弹出是否确认删除对话框
+			var empName = $(this).parents("tr").find("td:eq(1)").text();
+			var empId = $(this).attr("del-id");
+			//alert($(this).parents("tr").find("td:eq(1)").text());
+			if(confirm("确认删除【"+empName+"】吗？")){
+				$.ajax({
+					url:"${APP_PATH}/emps/"+empId,
+					type:"DELETE",
+					success:function(result){
+						alert(result.msg);
+						to_page(currentPage);
+					}
+				});
+				
+			}
 		});
 	</script>
 </body>

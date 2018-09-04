@@ -36,6 +36,20 @@ public class EmployeeController {
 	EmployeeService employeeService;
 
 	/**
+	 * 删除单个员工
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/emps/{id}",method=RequestMethod.DELETE)
+	public Msg deleteEmpById(@PathVariable("id") Integer id) {
+		employeeService.deleteEmp(id);
+		
+		return Msg.success();
+	}
+	
+	
+	/**
 	 * 如果直接发送ajax=PUT请求
 	 * 
 	 * 员工更新方法
@@ -45,7 +59,7 @@ public class EmployeeController {
 	@ResponseBody
 	@RequestMapping(value="/emps/{empId}",method=RequestMethod.PUT)
 	public Msg saveEmp(Employee employee) {
-		System.out.println(employee);
+	//	System.out.println(employee);
 		employeeService.updateEmp(employee);
 		return Msg.success();
 	}
@@ -122,7 +136,7 @@ public class EmployeeController {
 		// 这不是一个分页
 		// 引入pageHelper分页插件
 		// 在查询之前秩序调用，传入页码，以及煤业的大小
-		System.out.println("1");
+//		System.out.println("1");
 		PageHelper.startPage(pn, 5);
 		List<Employee> emps = employeeService.getAll();
 		// 使用PageInfo包装查询后的结果
