@@ -19,7 +19,60 @@
 <script src="${APP_PATH }/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<!-- 员工新增 -->
+<!-- 员工修改模态框-->
+	<div class="modal fade" id="empUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" >员工修改</h4>
+	      </div>
+	      <div class="modal-body">
+	        <form class="form-horizontal">
+			  <div class="form-group">
+			    <label  class="col-sm-2 control-label">empName</label>
+			    <div class="col-sm-10">
+			      <input type="text" name="empName" class="form-control" id="empName_update_input" placeholder="empName">
+			      <span id="helpBlock2" class="help-block"></span>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label  class="col-sm-2 control-label">email</label>
+			    <div class="col-sm-10">
+			      <input type="email" name="email" class="form-control" id="email_update_input" placeholder="email@loooody.com">
+			      <span id="helpBlock2" class="help-block"></span>
+			    </div>
+			  </div>
+			  <div class="form-group">
+				  <label  class="col-sm-2 control-label">gender</label>
+				    <div class="col-sm-10">
+				    <label class="radio-inline">
+					  <input type="radio" name="gender" id="gender1_update_input" value="M" checked="checked"> 男
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="gender" id="gender2_update_input" value="F"> 女
+					</label>
+			    </div>
+			  </div>
+			  <div class="form-group">
+				  <label  class="col-sm-2 control-label">department</label>
+				   <div class="col-sm-4">
+				    	<!-- 部门提交部门即可 -->
+				    <select class="form-control" name="deptId"></select>
+			    </div>
+			  </div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" id="emp_update_btn">Save</button>
+	      </div>
+	    </div>
+	  </div>
+	</div> 
+
+
+	<!-- 员工新增模态框 -->
 	<div class="modal fade" id="empAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
@@ -162,10 +215,10 @@
 				编辑
 				</button> */
 				//添加按钮
-				var editbtn = $("<button></button>").addClass("btn btn-primary btn-sm")
+				var editbtn = $("<button></button>").addClass("btn btn-primary btn-sm update_btn")
 								.append("<span></span>").addClass("glyphicon glyphicon-pencil").append("编辑");
 				//删除按钮
-				var deletebtn = $("<button></button>").addClass("btn btn-danger btn-sm")
+				var deletebtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
 								.append("<span></span>").addClass("glyphicon glyphicon-trash").append("删除");
 				var btnTd = $("<td></td>").append(editbtn).append(" ").append(deletebtn);
 				$("<tr></tr>").append(empIdTd)
@@ -264,7 +317,7 @@
 			 reset_form("#empAddModal form");
 			// $("#empAddModal form")[0].reset();
 			 //发送ajax请求，查出部门信息，显示在下拉列表中
-			 getDepts();
+			 getDepts("#empAddModal select");
 			 
 			 //弹出模态框
 			$("#empAddModal").modal({
@@ -273,7 +326,9 @@
 		}); 
 		
 		//查出所有部门信息并显示在下拉列表中
-		function getDepts(){
+		function getDepts(ele){
+			//清空列表
+			$(ele).empty();
 			$.ajax({
 				url:"${APP_PATH}/depts",
 				type:"GET",
@@ -281,7 +336,7 @@
 				//	console.log(result);
 				$.each(result.extend.depts,function(){
 					var optionEl = $("<option></option>").append(this.deptName).attr("value",this.deptId);
-					optionEl.appendTo("#empAddModal select");
+					optionEl.appendTo(ele);
 				})
 				}
 			});
@@ -391,6 +446,22 @@
 				}
 				
 			}) ;
+		});
+		
+		//1.我们是按钮创建之前就绑定了click，所以绑定不上
+		//1).可以在创建按钮的时候绑定  2）。绑定点击.live()
+		//jquery新版没有live()方法，用on()来替代
+		$(document).on("click",".update_btn",function(){
+			//alert("点击成功");
+			//1.查出员工信息
+			//2.查出部门信息，并显示部门列表
+			
+			getDepts("#empUpdateModal select")
+			
+			 //弹出模态框
+			$("#empUpdateModal").modal({
+				backdrop:"static"
+			});
 		});
 	</script>
 </body>
