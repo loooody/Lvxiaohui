@@ -91,7 +91,7 @@
   	select 
     <include refid="WithDept_Column_List" />
     from employee e
-    left join dept d on e.emp_id = d.dept_id
+    left join dept d on e.emp_id % 2 = d.dept_id
     where emp_id = #{empId,jdbcType=INTEGER}
   </select>
   <select id="selectByExampleWithDept" resultMap="WithDeptResultMap">

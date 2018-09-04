@@ -32,8 +32,7 @@
 			  <div class="form-group">
 			    <label  class="col-sm-2 control-label">empName</label>
 			    <div class="col-sm-10">
-			      <input type="text" name="empName" class="form-control" id="empName_update_input" placeholder="empName">
-			      <span id="helpBlock2" class="help-block"></span>
+			    	<p class="form-control-static" id="empName_update_static">email@example.com</p>
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -65,7 +64,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="emp_update_btn">Save</button>
+	        <button type="button" class="btn btn-primary" id="emp_update_btn">Update</button>
 	      </div>
 	    </div>
 	  </div>
@@ -173,7 +172,7 @@
 	
 	<script>
 	    //数据总记录数
-	    var totalRecord;
+	    var totalRecord,currentPage;
 		//1.页面加载完成后，直接取发送ajax请求，要到分页数据
 		$(function(){
 			//去首页
@@ -217,6 +216,8 @@
 				//添加按钮
 				var editbtn = $("<button></button>").addClass("btn btn-primary btn-sm update_btn")
 								.append("<span></span>").addClass("glyphicon glyphicon-pencil").append("编辑");
+				//为编辑按钮添加一个自定义的属性，来表示当前员工的id
+				editbtn.attr("edit-id",item.empId);
 				//删除按钮
 				var deletebtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
 								.append("<span></span>").addClass("glyphicon glyphicon-trash").append("删除");
@@ -239,6 +240,7 @@
 					+ "页，总" + result.extend.pageInfo.total + "条记录");
 			
 			totalRecord = result.extend.pageInfo.total;
+			currentPage = result.extend.pageInfo.pageNum;
 		}
 		
 		//分页信息
@@ -454,13 +456,66 @@
 		$(document).on("click",".update_btn",function(){
 			//alert("点击成功");
 			//1.查出员工信息
+			getEmp($(this).attr("edit-id"));
+			
 			//2.查出部门信息，并显示部门列表
 			
 			getDepts("#empUpdateModal select")
 			
+			//把员工的id传递给模态框的更新按钮
+			$("#emp_update_btn").attr("edit-id",$(this).attr("edit-id"));
+			
 			 //弹出模态框
 			$("#empUpdateModal").modal({
 				backdrop:"static"
+			});
+		});
+		
+		function getEmp(id){
+			$.ajax({
+				url:"${APP_PATH}/emps/" + id,
+				type:"GET",
+				success:function(result){
+					//	console.log(result);
+					var empData = result.extend.emp;
+					$("#empName_update_static").text(empData.empName);
+					$("#email_update_input").val(empData.email);
+					$("#empUpdateModal input[name=gender]").val([empData.gender]);
+					$("#empUpdateModal select").val([empData.department.deptId]);
+			//		console.log(result);
+				}
+			}); 
+		}
+		
+		
+		//点击更新，更新员工信息
+		$("#emp_update_btn").click(function(){
+			//验证邮箱是否合法
+			//校验邮箱信息
+			var email = $("#email_update_input").val();
+			var regEmail = 	/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			if(!regEmail.test(email)){
+			//	alert("邮箱有误，请重新输入");
+				show_validate_msg("#email_update_input","error","邮箱有误，请重新输入");
+				
+				return false;
+			}else{
+				show_validate_msg("#email_update_input","success","");
+			}
+			
+			//发送ajax请求更新员工数据
+			$.ajax({
+				url:"${APP_PATH}/emps/" + $(this).attr("edit-id"),
+				type:"PUT",
+				data:$("#empUpdateModal form").serialize(),
+				success:function(result){
+					//alert(result.msg);
+					//1.关闭对话框
+					$("#empUpdateModal").modal("hide");
+					//2.回到本页面
+					to_page(currentPage);
+				}
+				
 			});
 		});
 	</script>

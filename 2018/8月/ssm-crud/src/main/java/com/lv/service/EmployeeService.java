@@ -45,4 +45,25 @@ public class EmployeeService {
 		return count == 0;
 	}
 
+	/**
+	 * 按照员工id查询员工
+	 * @param id
+	 * @return
+	 */
+	public Employee getEmp(Integer id) {
+		// TODO Auto-generated method stub
+		
+		Employee employee = employeeMapper.selectByPrimaryKeyWithDept(id);
+		return employee;
+	}
+
+	/**
+	 * 员工更新
+	 * @param employee
+	 */
+	public void updateEmp(Employee employee) {
+		// TODO Auto-generated method stub
+		employeeMapper.updateByPrimaryKeySelective(employee);
+	}
+
 }

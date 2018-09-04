@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,36 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
 
+	/**
+	 * 如果直接发送ajax=PUT请求
+	 * 
+	 * 员工更新方法
+	 * @param employee
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/emps/{empId}",method=RequestMethod.PUT)
+	public Msg saveEmp(Employee employee) {
+		System.out.println(employee);
+		employeeService.updateEmp(employee);
+		return Msg.success();
+	}
+	
+	
+	/**
+	 * 根据id查询员工
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/emps/{id}",method=RequestMethod.GET)
+	@ResponseBody
+	public Msg getEmp(@PathVariable("id") Integer id) {
+		
+		Employee employee = employeeService.getEmp(id);
+		
+		return Msg.success().add("emp", employee);
+	}
+	
 	/**
 	 * 检查用户名是否可用
 	 * @param empName
