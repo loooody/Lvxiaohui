@@ -29,6 +29,22 @@ public class EmployeeController {
 	EmployeeService employeeService;
 
 	/**
+	 * 检查用户名是否可用
+	 * @param empName
+	 * @return
+	 */
+	@RequestMapping("/checkuser")
+	@ResponseBody
+	public Msg checkUser(@RequestParam ("empName")String empName) {
+		boolean b = employeeService.checkuser(empName);
+		if(b) {
+			return Msg.success();
+		}else {
+			return Msg.fail();
+		}
+	}
+	
+	/**
 	 * 员工保存
 	 * @param pn
 	 * @param model
@@ -68,7 +84,7 @@ public class EmployeeController {
 		// 这不是一个分页
 		// 引入pageHelper分页插件
 		// 在查询之前秩序调用，传入页码，以及煤业的大小
-		System.out.println("1");
+	//	System.out.println("1");
 		PageHelper.startPage(pn, 5);
 		List<Employee> emps = employeeService.getAll();
 		// 使用PageInfo包装查询后的结果

@@ -33,12 +33,14 @@
 			    <label  class="col-sm-2 control-label">empName</label>
 			    <div class="col-sm-10">
 			      <input type="text" name="empName" class="form-control" id="empName_add_input" placeholder="empName">
+			      <span id="helpBlock2" class="help-block"></span>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label  class="col-sm-2 control-label">email</label>
 			    <div class="col-sm-10">
 			      <input type="email" name="email" class="form-control" id="email_add_input" placeholder="email@loooody.com">
+			      <span id="helpBlock2" class="help-block"></span>
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -250,6 +252,8 @@
 		
 		//点击新增按钮，弹出模态框
 		 $("#emp_add_model_btn").click(function(){
+			 //每次弹出模态框都清空表单
+			 $("#empAddModal form")[0].reset();
 			 //发送ajax请求，查出部门信息，显示在下拉列表中
 			 getDepts();
 			 
@@ -280,25 +284,70 @@
 			var empName = $("#empName_add_input").val();
 			var regName = 	/(^[a-z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
 			if(!regName.test(empName)){
-				alert("用户名可是2-5位中文或者6-16位英文和数字的组合");
+			//	alert("用户名可是2-5位中文或者6-16位英文和数字的组合");
+				//清空这个元素之前的元素
+				show_validate_msg("#empName_add_input","error","用户名可是2-5位中文或者6-16位英文和数字的组合");
+				
 				return false;
+			}else{
+				show_validate_msg("#empName_add_input","success","");
 			};
 			
 			//校验邮箱信息
 			var email = $("#email_add_input").val();
 			var regEmail = 	/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 			if(!regEmail.test(email)){
-				alert("邮箱有误，请重新输入");
+			//	alert("邮箱有误，请重新输入");
+				show_validate_msg("#email_add_input","error","邮箱有误，请重新输入");
+				
 				return false;
+			}else{
+				show_validate_msg("#email_add_input","success","");
 			}
 			
 			return true;
 		}
 		
+		//在模态框上显示校验信息
+		function show_validate_msg(ele,status,msg){
+			//清楚当前元素的校验状态
+			$(ele).parent().removeClass("has-success has-error");
+			$(ele).next("span").text(msg);
+			if("success" == status){
+				$(ele).parent().addClass("has-success");
+				$(ele).next("span").text(msg);
+			}else if("error" == status){
+				$(ele).parent().addClass("has-error");
+				$(ele).next("span").text(msg);
+			}
+		}
+		
+		$("#empName_add_input").change(function(){
+			//发送ajax请求校验用户名是否可用
+			var empName = this.value;
+			$.ajax({
+				url:"${APP_PATH}/checkuser",
+				data:"empName=" + empName,
+				type:"POST",
+				success:function(result){
+					if(result.code == 200){
+						show_validate_msg("#empName_add_input","success","用户名可用");
+						$("#emp_save_btn").attr("ajax-va","success");
+					}else{
+						show_validate_msg("#empName_add_input","error","用户名已存在");
+						$("#emp_save_btn").attr("ajax-va","fail");
+					}
+				}
+			});
+		});
+		
 		$("#emp_save_btn").click(function(){
 			//1.模态框中填写的表单数据提交给服务器进行保存
 			//1.对要提交给服务器的数据进行校验
 			if(!validate_add_form()){
+				return false;
+			}
+			if($(this).attr("ajax-va") == "fail"){
 				return false;
 			}
 			//发送ajax请求给服务器
