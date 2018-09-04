@@ -1,12 +1,18 @@
 package com.lv.bean;
 
+import javax.validation.constraints.Pattern;
+
 public class Employee {
     private Integer empId;
 
+    @Pattern(regexp = "(^[a-z0-9_-]{6,16}$)|(^[\\u2E80-\\u9FFF]{2,5})",
+    		message="用户名必须是2-5位中文或者6-16位英文和数字的组合")
     private String empName;
 
     private String gender;
 
+    @Pattern(regexp = "^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$",
+    		message="邮箱有误，请重新输入")
     private String email;
     
     //希望查询员工信息时部门信息也能查询到

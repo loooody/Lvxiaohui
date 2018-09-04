@@ -250,10 +250,19 @@
 			navUl.appendTo("#page_info_nav");
 		}
 		
+		//表单完整重置方法
+		function reset_form(ele){
+			$(ele)[0].reset();
+			//清空表单样式
+			$(ele).find("*").removeClass("has-error has-success");
+			$(ele).find(".help-block").text("");
+		}
+		
 		//点击新增按钮，弹出模态框
 		 $("#emp_add_model_btn").click(function(){
-			 //每次弹出模态框都清空表单
-			 $("#empAddModal form")[0].reset();
+			 //每次弹出模态框都清空表单(表单完整重置)
+			 reset_form("#empAddModal form");
+			// $("#empAddModal form")[0].reset();
 			 //发送ajax请求，查出部门信息，显示在下拉列表中
 			 getDepts();
 			 
@@ -286,7 +295,7 @@
 			if(!regName.test(empName)){
 			//	alert("用户名可是2-5位中文或者6-16位英文和数字的组合");
 				//清空这个元素之前的元素
-				show_validate_msg("#empName_add_input","error","用户名可是2-5位中文或者6-16位英文和数字的组合");
+				show_validate_msg("#empName_add_input","error","用户名必须是2-5位中文或者6-16位英文和数字的组合");
 				
 				return false;
 			}else{
@@ -334,7 +343,7 @@
 						show_validate_msg("#empName_add_input","success","用户名可用");
 						$("#emp_save_btn").attr("ajax-va","success");
 					}else{
-						show_validate_msg("#empName_add_input","error","用户名已存在");
+						show_validate_msg("#empName_add_input","error",result.extend.va_msg);
 						$("#emp_save_btn").attr("ajax-va","fail");
 					}
 				}
@@ -344,9 +353,9 @@
 		$("#emp_save_btn").click(function(){
 			//1.模态框中填写的表单数据提交给服务器进行保存
 			//1.对要提交给服务器的数据进行校验
-			if(!validate_add_form()){
+			 if(!validate_add_form()){
 				return false;
-			}
+			}  
 			if($(this).attr("ajax-va") == "fail"){
 				return false;
 			}
@@ -358,13 +367,29 @@
 				data:$("#empAddModal form").serialize(),
 				success:function(result){
 					//alert(result.msg);
-					//员工保存成功
-					//1.关闭模态框
-					$("#empAddModal").modal('hide');
-					//2.来到最后一页
-					to_page(totalRecord);
+					if(result.code == 200){
+						//员工保存成功
+						//1.关闭模态框
+						$("#empAddModal").modal('hide');
+						//2.来到最后一页
+						to_page(totalRecord);
+					}
+					else{
+						//显示失败信息
+						console.log(result);
+						//有哪个字段的错误信息就显示哪个字段的
+						if(undefined != result.extend.emp_error.email){
+							//显示邮箱错误信息
+							show_validate_msg("#email_add_input","error",result.extend.emp_error.email);
+						}
+						if(undefined != result.extend.emp_error.empName){
+							//显示员工姓名错误信息
+							show_validate_msg("#empName_add_input","error",result.extend.emp_error.empName);
+						}
+					}
 					
 				}
+				
 			}) ;
 		});
 	</script>
