@@ -16,20 +16,39 @@ class binaryTree{
 	
 	private static BinaryNode root;
 	private static List<BinaryNode> list = new ArrayList<BinaryNode>();
+	private static List<BinaryNode> list1 = new ArrayList<BinaryNode>();
+	private static List<BinaryNode> list2 = new ArrayList<BinaryNode>();
 	
 	public static void main(String[] args){
 		init();
 		
+		//前序遍历
 		preOrder(root);
+		//中序遍历
+		midOrder(root);
+		//后序遍历
+		postOrder(root);
+		
+		System.out.println("前序遍历:");
 		for(int i = 0; i < list.size(); i++){
 			System.out.print(list.get(i).element + "->");
+		}
+		
+		System.out.println("\n中序遍历:");
+		for(int i = 0; i < list.size(); i++){
+			System.out.print(list1.get(i).element + "->");
+		}
+		
+		System.out.println("\n后序遍历:");
+		for(int i = 0; i < list.size(); i++){
+			System.out.print(list2.get(i).element + "->");
 		}
 	}
 	
 	
 	
 	/**
-	*对二叉树进行线序遍历
+	*对二叉树进行前序遍历
 	*/
 	public static void preOrder(BinaryNode node){
 		list.add(node);
@@ -42,6 +61,32 @@ class binaryTree{
 		if(node.rChild != null){
 			preOrder(node.rChild);
 		}
+	}
+	
+	/**
+	*对二叉树进行前序遍历
+	*/
+	public static void midOrder(BinaryNode node){
+		if(node.lChild != null){
+			midOrder(node.lChild);
+		}
+		list1.add(node);
+		if(node.rChild != null){
+			midOrder(node.rChild);
+		}
+	}
+	
+	/**
+	*对二叉树进行后序遍历
+	*/
+	public static void postOrder(BinaryNode node){
+		if(node.lChild != null){
+			postOrder(node.lChild);
+		}
+		if(node.rChild != null){
+			postOrder(node.rChild);
+		}
+		list2.add(node);
 	}
 	
 	//数据初始化
