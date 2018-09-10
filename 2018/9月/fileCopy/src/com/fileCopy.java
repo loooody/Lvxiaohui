@@ -19,6 +19,12 @@ public class fileCopy {
 	//	copy(source,target);
 		
 		System.out.println(countWordInFile(source,"new"));
+		
+		String filepath = "C:\\";
+		
+		listOfFile(filepath);
+		
+	//	showDirectory(filepath);
 	}
 	
 	/**
@@ -56,4 +62,40 @@ public class fileCopy {
 		}
 		return count;
 	}
+	
+	/**
+	 * 列出当前文件夹下的文件
+	 */
+	public static void listOfFile(String filepath) {
+		File f = new File(filepath);
+		for(File temp : f.listFiles()) {
+			if(temp.isFile()) {
+				System.out.println(temp.getName());
+			}
+		}
+	}
+	
+//	/**
+//	 * 显示出当前目录下所有的文件
+//	 */
+//	public static void showDirectory(String file) {
+//		File f = new File(file);
+//		_walkDirectory(f,0);
+//	}
+//	
+//	public static void _walkDirectory(File f, int level) {
+//		if(f.isDirectory()) {
+//			for(File temp : f.listFiles()) {
+//				System.out.println(f.getName());
+//				_walkDirectory(temp, level + 1);
+//			}
+//		}
+//		
+//		else {
+//			for(int i = 0; i < level - 1; i++) {
+//				System.out.println("\t");
+//			}
+//			System.out.println(f.getName());
+//		}
+//	}
 }
