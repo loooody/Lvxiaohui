@@ -40,22 +40,19 @@ public class DeleteDuplication {
     }
 
     //实现代码
-    public static Node deleteDuplication(Node head) {
-        if (head == null) {
-            return head;
+    public static void deleteDuplication(Node head1) {
+        if (head1 == null) {
+            return ;
         }
         Node first = new Node(0);
-        first.next = head;
-        Node node = head;
+        first.next = head1;
+        Node node = head1;
         Node pre = first;
 
         while (node != null && node.next != null) {
             if (node.object == node.next.object) {
                 Object object = node.object;
                 while (node != null && node.object == object) {
-                    if(node == first.next){
-                        first = first.next;
-                    }
                     node = node.next;
                 }
                 pre.next = node;
@@ -64,7 +61,7 @@ public class DeleteDuplication {
                 node = node.next;
             }
         }
-        return first.next;
+        head = first.next;
     }
 
     public static void main(String[] args) {
