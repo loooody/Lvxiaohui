@@ -2,6 +2,37 @@ package com.company;
 
 import java.util.Scanner;
 
+
+/**
+ * 递归实现
+ *
+ * 每次分别在str 和pattern中取一个字符进行匹配，如果匹配，则匹配下一个字符，否则，返回不匹配。
+ *
+ * 设匹配递归函数 match(str, pattern)。
+ *
+ * 如果模式匹配字符的下一个字符是‘*’:
+ *
+ * •如果pttern当前字符和str的当前字符匹配，：有以下三种可能情况
+ *
+ * （1）pttern当前字符能匹配 str 中的 0 个字符：match(str, pattern+2)
+ *
+ * （2）pttern当前字符能匹配 str 中的 1 个字符：match(str+1, pattern+2)
+ *
+ * （3）pttern当前字符能匹配 str 中的 多 个字符：match(str+1, pattern)
+ *
+ *  如果pttern当前字符和和str的当前字符不匹配
+ *
+ * pttern当前字符能匹配 str 中的 0 个字符：(str, pattern+2)
+ *
+ * 如果模式匹配字符的下一个字符不是‘*’，进行逐字符匹配。
+ *
+ * 对于 ‘.’ 的情况比较简单，’.’ 和一个字符匹配 match(str+1, pattern+1)
+ *
+ * 另外需要注意的是：空字符串”” 和 “.*” 是匹配的
+ *
+ * ---------------------
+ *
+ */
 public class MatchStr {
     public boolean matchFunction(String input, String pattren) {
         if (input == null || pattren == null) {
