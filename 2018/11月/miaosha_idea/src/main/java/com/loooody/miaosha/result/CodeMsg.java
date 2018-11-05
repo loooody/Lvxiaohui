@@ -4,7 +4,7 @@ public class CodeMsg {
     private int code;
     private String msg;
 
-    //
+    //登录模块
     public static CodeMsg SUCCESS = new CodeMsg(0, "success");
     public static CodeMsg SERVER_ERROR = new CodeMsg(500100, "server_error");
     public static CodeMsg PASSWORD_EMPTY = new CodeMsg(500101, "密码不能为空");
@@ -13,6 +13,14 @@ public class CodeMsg {
     public static CodeMsg MOBILE_NOT_EXIST = new CodeMsg(500104, "手机号不存在");
     public static CodeMsg PASSWORD_ERROR = new CodeMsg(500105, "密码错误");
     public static CodeMsg BIND_ERROR = new CodeMsg(500106, "参数校验异常:%s");
+
+    //商品模块  5002xx
+
+    //订单模块 5003XX
+
+    //秒杀模块 5004XX
+    public static CodeMsg MIAOSHA_OVER = new CodeMsg(500500, "商品已经秒杀结束");
+    public static CodeMsg REPEATE_MIAOSHA = new CodeMsg(500501, "不能重复秒杀");
 
 
 

@@ -54,7 +54,8 @@ public class MiaoshaUserService {
         }
 
         //cookie
-        addCookie(response, user);
+        String token = UUIDUtil.uuid();
+        addCookie(response, token, user);
 
         return true;
     }
@@ -67,16 +68,15 @@ public class MiaoshaUserService {
         MiaoshaUser user = redisService.get(MiaoshaUserKey.token, token, MiaoshaUser.class);
 
         if (user != null) {
-            addCookie(response, user);
+            addCookie(response, token, user);
         }
 
         return user;
     }
 
 
-    private void addCookie(HttpServletResponse response, MiaoshaUser user) {
+    private void addCookie(HttpServletResponse response, String token, MiaoshaUser user) {
         //cookie
-        String token = UUIDUtil.uuid();
         redisService.set(MiaoshaUserKey.token, token, user);
         Cookie cookie = new Cookie(COOKIE_NAME_TOKEN, token);
         cookie.setMaxAge(MiaoshaUserKey.token.expireSeconds());
