@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>WebSocket客户端</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+
+  <style>
+    body{
+      background:url(./images/fengjing.jpg)  no-repeat center center;
+      background-size:cover;
+      background-attachment:fixed;
+      background-color:#CCCCCC;
+    }
+  </style>
+
+  <body>
+    <div style="margin-top: 150px; text-align:center">
+      <p><h2><b>WebSocket测试</b></h2></p>
+    </div>
+    <div class="container" >
+      <div class="row clearfix" style="margin-top: 250px">
+        <div class="col-md-4 column">
+          <button type="button" style="width:150px; height:50px" id="btnConnection" class="btn btn-lg btn-success">连接</button>
+        </div>
+        <div class="col-md-4 column">
+          <button type="button" style="width:150px; height:50px" id="btnSend" class="btn btn-lg btn-info">发送消息</button>
+        </div>
+        <div class="col-md-4 column">
+          <button type="button" style="width:150px; height:50px" id="btnClose" class="btn btn-lg btn-danger">关闭</button>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script src="https://cdn.bootcss.com/jquery/1.10.0/jquery.min.js"></script>
+    <script>
+      var websocket;
+
+      if ('websocket' in window) {
+
+          $('#btnConnection').click(function(){
+              //实现WebSocket对象，指定要连接的服务器地址与端口
+              websocket = new WebSocket('ws://127.0.0.1:8080/websocketdemo/ws/loooody');
+              //打开事件
+              websocket.onopen = function(){
+                  alert('socket已打开');
+              };
+
+              //获得消息事件
+              websocket.onmessage = function(msg){
+                  alert(msg.data);
+              };
+
+              //关闭事件
+              websocket.onclose = function(){
+                  alert('Socket已关闭');
+              };
+
+              //发生了错误事件
+              websocket.onerror = function(){
+                  alert('发生了错误');
+              }
+
+          });
+
+          //发送消息
+          $('#btnSend').click(function(){
+              websocket.send('这是来自客户端的消息' + '\n地址 : ' +  location.href + '\n日期 :' + new Date());
+          });
+
+          //关闭
+          $('#btnClose').click(function(){
+              websocket.close();
+          });
+
+      }else{
+          alert("您的浏览器不支持WebSocket");
+      }
+    </script>
+  </body>
+</html>
