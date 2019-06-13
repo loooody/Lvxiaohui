@@ -1,0 +1,52 @@
+{
+  "seller": {
+    "name": "Loooody甜品店",
+    "description": "蜂鸟专送",
+    "deliveryTime": 38,
+    "score": 4.8,
+    "serviceScore": 4.1,
+    "foodScore": 4.3,
+    "rankRate": 69.2,
+    "minPrice": 15,
+    "deliveryPrice": 0,
+    "ratingCount": 24,
+    "sellCount": 90,
+    "bulletin": "蛋糕是甜蜜的，蛋糕是快乐的，蛋糕也是幸福的，不同的蛋糕，代表着不同的心情和意义。生日、恋爱、婚礼，在人生这么重要的时刻，当然要与身边亲朋好友或是情人知己、乃至同学同事共同分享，成为记忆中的难忘的生活欢聚时刻。生日，成为有“脆”时刻诞生日，是每一个人每年最值得庆祝的大日子。担当主角的无论男或女，老或少，生日收到蛋糕总是一乐也。",
+    "supports": [
+      {
+        "type": 0,
+        "description": "在线支付满500减100"
+      },
+      {
+        "type": 1,
+        "description": "全场8折"
+      },
+      {
+        "type": 2,
+        "description": "单人精彩套餐"
+      },
+      {
+        "type": 3,
+        "description": "该商家支持发票,请下单写好发票抬头"
+      },
+      {
+        "type": 4,
+        "description": "已加入“外卖保”计划,食品安全保障"
+      }
+    ],
+    "avatar": "http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg",
+    "pics": [
+      "http://47.105.170.25/pictures/1.1.webp",
+      "http://47.105.170.25/pictures/1.2.webp",
+      "http://47.105.170.25/pictures/2.2.webp",
+      "http://47.105.170.25/pictures/2.1.webp"
+    ],
+    "infos": [
+      "该商家支持发票,请下单写好发票抬头",
+      "品类:甜品店",
+      "武汉市洪山区美食天堂",
+      "商家联系电话：13125181800",
+      "营业时间:10:00-20:30"
+    ]
+  }
+}
