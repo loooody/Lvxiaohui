@@ -1,0 +1,26 @@
+
+#logging:
+#  pattern:
+#    console: "%d - %msg%n"
+#  file: /home/loooody/shell.log
+#  level:
+#    com.loooody.dylxh.LoggeerTest: debug
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/loooody?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql: true
+#  jackson:
+#    default-property-inclusion: non_null
+server:
+  context-path: /dylxh
+  port: 80
+
+wechat:
+  mpAppId: wx6109375e3504ba33
+  mpAppSecret: bcff4c19312a5edd6f73c26c70d5c61b
+  templateId:
+    orderStatus: bsZlyyjSwAIFINg6w8CzrM7kbaAhfR8RDurucijtj3s
